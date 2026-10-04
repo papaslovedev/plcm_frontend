@@ -4,7 +4,8 @@ import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, S
 
 export default function ContactPage() {
   const [details,setDetails]=useState({email:"papaslovechildrenministry@gmail.com",phone:"+256 774615784",alternatePhone:"+256709196703",location:"Naama Village, Mityana, Uganda"});
-  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\\/$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);\n  const [prepared, setPrepared] = useState(false);
+  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\//$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);
+  const [prepared, setPrepared] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -42,8 +43,8 @@ export default function ContactPage() {
       <div className="contact-wrap">
         <div className="contact-section-heading"><span className="contact-eyebrow dark">GET IN TOUCH</span><h2>We’re only a message away.</h2><p>Choose the easiest way to connect with our team.</p></div>
         <div className="contact-detail-grid">
-          <a className="contact-detail-card" href={"tel:"+details.phone.replace(/\\s/g,"")}><span className="contact-detail-icon"><Phone/></span><small>CALL US</small><strong>{details.phone}</strong><span>Speak with our ministry team</span></a>
-          <a className="contact-detail-card" href={"tel:"+details.alternatePhone.replace(/\\s/g,"")}><span className="contact-detail-icon pink-icon"><Phone/></span><small>CALL / WHATSAPP</small><strong>{details.alternatePhone}</strong><span>Connect with us directly</span></a>
+          <a className="contact-detail-card" href={"tel:"+details.phone.replace(/\s/g,"")}><span className="contact-detail-icon"><Phone/></span><small>CALL US</small><strong>{details.phone}</strong><span>Speak with our ministry team</span></a>
+          <a className="contact-detail-card" href={"tel:"+details.alternatePhone.replace(/\s/g,"")}><span className="contact-detail-icon pink-icon"><Phone/></span><small>CALL / WHATSAPP</small><strong>{details.alternatePhone}</strong><span>Connect with us directly</span></a>
           <a className="contact-detail-card" href={"mailto:"+details.email}><span className="contact-detail-icon gold-icon"><Mail/></span><small>EMAIL US</small><strong className="contact-email">{details.email}</strong><span>For questions and partnerships</span></a>
           <article className="contact-detail-card contact-address-card"><span className="contact-detail-icon"><MapPin/></span><small>OUR HOME</small><strong>{details.location.split(",")[0]}, {details.location.split(",")[1]?.trim()}</strong><span>{details.location.split(",").slice(2).join(",").trim()||"Uganda"}</span></article>
         </div>
