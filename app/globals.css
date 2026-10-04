@@ -151,3 +151,15 @@
 @media(max-width:900px){.hero{height:540px}.hero-content{padding-top:72px}.hero h1{font-size:clamp(39px,6.5vw,56px)}}
 @media(max-width:640px){.hero{height:590px;margin-bottom:105px;overflow:hidden}.hero-photo{inset:0;width:100%;background-position:58% center;opacity:.48;transform-origin:center}.hero-shade{background:linear-gradient(90deg,#032b68f2 0%,#063b91df 60%,#063b91a8 100%),linear-gradient(0deg,#032b68a8,transparent 65%)}.hero-content{padding-top:66px;padding-bottom:40px}.hero h1{font-size:clamp(36px,10vw,45px);letter-spacing:-1.2px;max-width:100%}.hero p{font-size:13px;max-width:350px}.hero-actions{gap:9px;margin-top:22px}.hero-actions .btn{padding:12px 13px;min-height:44px;font-size:10px}.hero-dots{bottom:21px}.stats{max-width:92%;width:92%}}
 @media(prefers-reduced-motion:reduce){.hero:before,.hero:after{animation:none!important}}
+
+
+/* Keep the overlapping impact/statistics panel above the following About section.
+   Clip only sideways overflow; never paint-clip the card that intentionally hangs
+   below the hero. */
+.hero{overflow-x:clip;overflow-y:visible;contain:none;z-index:1}
+.hero .stats{z-index:5;position:absolute;bottom:-40px}
+.about{position:relative;z-index:0}
+@media(max-width:640px){
+  .hero{overflow-x:clip;overflow-y:visible;contain:none;margin-bottom:112px}
+  .hero .stats{bottom:-40px}
+}
