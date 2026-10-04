@@ -2,7 +2,6 @@
 import { FormEvent, useState } from "react";
 import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
-const email = "papaslovechildrenministry@gmail.com";
 export default function ContactPage() {
   const [prepared, setPrepared] = useState(false);
   const [sending, setSending] = useState(false);
