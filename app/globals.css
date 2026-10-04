@@ -192,3 +192,10 @@
 @media(max-width:1000px){.manage-app{grid-template-columns:215px minmax(0,1fr)}.manage-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.manage-login-art{padding:30px}.manage-login-message h1{font-size:48px}}
 @media(max-width:700px){.manage-login{grid-template-columns:1fr}.manage-login-art{display:none}.manage-login-panel{min-height:100vh;padding:20px}.manage-login-card{box-shadow:none;border:0;background:transparent}.manage-mobile-logo{display:block}.manage-mobile-logo img{width:48px;height:48px;object-fit:contain;margin-bottom:20px}.manage-app{display:block}.manage-sidebar{position:fixed;z-index:30;left:-260px;top:0;width:250px;transition:left .25s;box-shadow:12px 0 30px #001b3c30}.manage-sidebar:focus-within{left:0}.manage-sidebar.is-open{left:0}.manage-topbar{height:62px;padding:0 15px}.manage-topbar>div{gap:9px}.manage-topbar>div>strong,.manage-topbar>div>svg:last-child{display:none}.manage-content{padding:25px 15px 15px}.manage-welcome{align-items:flex-start;flex-direction:column}.manage-welcome>a{align-self:flex-start}.manage-stats{gap:10px}.manage-stats article{padding:14px}.manage-stats article>strong{font-size:25px}.manage-panel{padding:15px}.manage-fields{grid-template-columns:1fr}.manage-footer{flex-direction:column}.manage-live{font-size:8px}.manage-menu-toggle{display:block;border:0;background:transparent;color:#164c84}.manage-topbar{justify-content:flex-start;gap:10px}.manage-topbar>span{flex:1}.manage-message-row>small{display:none}}
 @media(min-width:701px){.manage-menu-toggle{display:none}}
+
+/* Remitly payment card: custom typographic mark and warm green brand accent */
+.remitly{--pay-color:#24a86a;background:linear-gradient(145deg,#fff 0%,#fbfffc 100%)}
+.remitly .pay-logo{min-width:112px}
+.remitly-mark{display:inline-flex;align-items:center;gap:5px;color:#087e4b;font:900 25px/1 Arial,sans-serif;letter-spacing:-1.7px}
+.remitly-mark i{display:grid;place-items:center;width:27px;height:27px;border-radius:9px 9px 9px 2px;background:linear-gradient(145deg,#36c984,#07844e);color:white;font:900 19px/1 Arial,sans-serif;font-style:normal;box-shadow:0 5px 12px #1eaa6a35}
+.remitly .pay-hint svg{color:#15975c}
