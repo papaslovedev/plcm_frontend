@@ -3,7 +3,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 export default function ContactPage() {
-  const [details,setDetails]=useState({email:"papaslovechildrenministry@gmail.com",phone:"+256 774615784",alternatePhone:"+256709196703",location:"Naama Village, Mityana, Uganda"});\n  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\\/$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);\n  const [prepared, setPrepared] = useState(false);
+  const [details,setDetails]=useState({email:"papaslovechildrenministry@gmail.com",phone:"+256 774615784",alternatePhone:"+256709196703",location:"Naama Village, Mityana, Uganda"});
+  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\\/$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);\n  const [prepared, setPrepared] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
