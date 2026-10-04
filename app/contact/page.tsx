@@ -1,9 +1,9 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 export default function ContactPage() {
-  const [prepared, setPrepared] = useState(false);
+  const [details,setDetails]=useState({email:"papaslovechildrenministry@gmail.com",phone:"+256 774615784",alternatePhone:"+256709196703",location:"Naama Village, Mityana, Uganda"});\n  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\\/$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);\n  const [prepared, setPrepared] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -41,10 +41,10 @@ export default function ContactPage() {
       <div className="contact-wrap">
         <div className="contact-section-heading"><span className="contact-eyebrow dark">GET IN TOUCH</span><h2>We’re only a message away.</h2><p>Choose the easiest way to connect with our team.</p></div>
         <div className="contact-detail-grid">
-          <a className="contact-detail-card" href="tel:+256774615784"><span className="contact-detail-icon"><Phone/></span><small>CALL US</small><strong>+256 774615784</strong><span>Speak with our ministry team</span></a>
-          <a className="contact-detail-card" href="tel:+256709196703"><span className="contact-detail-icon pink-icon"><Phone/></span><small>CALL / WHATSAPP</small><strong>+256 709196703</strong><span>Connect with us directly</span></a>
-          <a className="contact-detail-card" href="mailto:papaslovechildrenministry@gmail.com"><span className="contact-detail-icon gold-icon"><Mail/></span><small>EMAIL US</small><strong className="contact-email">papaslovechildrenministry@gmail.com</strong><span>For questions and partnerships</span></a>
-          <article className="contact-detail-card contact-address-card"><span className="contact-detail-icon"><MapPin/></span><small>OUR HOME</small><strong>Naama Village, Mityana</strong><span>Central Region, Uganda</span></article>
+          <a className="contact-detail-card" href={"tel:"+details.phone.replace(/\\s/g,"")}><span className="contact-detail-icon"><Phone/></span><small>CALL US</small><strong>{details.phone}</strong><span>Speak with our ministry team</span></a>
+          <a className="contact-detail-card" href={"tel:"+details.alternatePhone.replace(/\\s/g,"")}><span className="contact-detail-icon pink-icon"><Phone/></span><small>CALL / WHATSAPP</small><strong>{details.alternatePhone}</strong><span>Connect with us directly</span></a>
+          <a className="contact-detail-card" href={"mailto:"+details.email}><span className="contact-detail-icon gold-icon"><Mail/></span><small>EMAIL US</small><strong className="contact-email">{details.email}</strong><span>For questions and partnerships</span></a>
+          <article className="contact-detail-card contact-address-card"><span className="contact-detail-icon"><MapPin/></span><small>OUR HOME</small><strong>{details.location.split(",")[0]}, {details.location.split(",")[1]?.trim()}</strong><span>{details.location.split(",").slice(2).join(",").trim()||"Uganda"}</span></article>
         </div>
       </div>
     </section>
@@ -77,9 +77,9 @@ export default function ContactPage() {
     </section>
     <section className="contact-map-section">
       <div className="contact-wrap">
-        <div className="contact-map-heading"><div><span className="contact-eyebrow dark">FIND US IN UGANDA</span><h2>Come visit our home.</h2><p>Find Papa’s Love Children’s Ministry in Naama Village, Mityana.</p></div><a href="https://www.google.com/maps/search/?api=1&query=Papas+Love+Children+Ministry+Naama+Village+Mityana+Uganda" target="_blank" rel="noopener noreferrer">Get directions <ArrowRight size={16}/></a></div>
+        <div className="contact-map-heading"><div><span className="contact-eyebrow dark">FIND US IN UGANDA</span><h2>Come visit our home.</h2><p>Find Papa’s Love Children’s Ministry at {details.location}.</p></div><a href="https://www.google.com/maps/search/?api=1&query=Papas+Love+Children+Ministry+Naama+Village+Mityana+Uganda" target="_blank" rel="noopener noreferrer">Get directions <ArrowRight size={16}/></a></div>
         <div className="contact-map-frame"><iframe title="Google Maps location of Papas Love Children Ministry, Naama Village, Mityana, Uganda" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7123005564213!2d31.980488169970414!3d0.4176913629570038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177db5c97cb691a9%3A0x344fda4a8ab8d06d!2sPapas%20Love%20Children%20Ministry!5e0!3m2!1sen!2sug!4v1791118411200!5m2!1sen!2sug" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></div>
-        <div className="contact-map-label"><MapPin size={18}/><span><b>Papas Love Children Ministry</b><small>Naama Village, Mityana, Uganda</small></span></div>
+        <div className="contact-map-label"><MapPin size={18}/><span><b>Papas Love Children Ministry</b><small>{details.location}</small></span></div>
       </div>
     </section>
     <section className="contact-final-cta"><div className="contact-wrap contact-cta-inner"><span className="contact-cta-heart">♡</span><span className="contact-eyebrow">LET’S MAKE GOOD THINGS HAPPEN</span><h2>One conversation can open a door to hope.</h2><p>Join us in helping children feel safe, cared for, and ready for a brighter future.</p><div><a className="contact-cta-primary" href="/donate">Support our children <ArrowRight size={17}/></a><a className="contact-cta-secondary" href="/sponsor">Sponsor a child</a></div></div></section>
