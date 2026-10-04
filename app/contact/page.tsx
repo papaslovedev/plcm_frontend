@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, S
 
 export default function ContactPage() {
   const [details,setDetails]=useState({email:"papaslovechildrenministry@gmail.com",phone:"+256 774615784",alternatePhone:"+256709196703",location:"Naama Village, Mityana, Uganda"});
-  useEffect(()=>{const endpoint=(process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql").replace(/\//$/,"");fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);
+  useEffect(()=>{const rawEndpoint=process.env.NEXT_PUBLIC_API_URL?.trim()||"https://plcmbackend.up.railway.app/graphql";const endpoint=rawEndpoint.endsWith("/")?rawEndpoint.slice(0,-1):rawEndpoint;fetch(endpoint.endsWith("/graphql")?endpoint:endpoint+"/graphql",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"{ publicSiteSettings { email phone alternatePhone location } }"})}).then(r=>r.json()).then(p=>{if(p.data?.publicSiteSettings)setDetails(p.data.publicSiteSettings)}).catch(()=>{});},[]);
   const [prepared, setPrepared] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
