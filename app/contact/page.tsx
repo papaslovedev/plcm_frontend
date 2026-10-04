@@ -5,22 +5,20 @@ import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, S
 const email = "papaslovechildrenministry@gmail.com";
 export default function ContactPage() {
   const [prepared, setPrepared] = useState(false);
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = encodeURIComponent("Website enquiry — " + String(data.get("topic")));
-    const body = encodeURIComponent([
-      "Name: " + data.get("name"),
-      "Email: " + data.get("email"),
-      "Phone / WhatsApp: " + data.get("phone"),
-      "Country: " + data.get("country"),
-      "I am contacting you about: " + data.get("topic"),
-      "",
-      "Message:",
-      data.get("message")
-    ].join("\n"));
-    window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
-    setPrepared(true);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setError(""); setPrepared(false); setSending(true);
+    const form = event.currentTarget; const data = new FormData(form);
+    const configured = (process.env.NEXT_PUBLIC_API_URL?.trim() || "https://plcmbackend.up.railway.app/graphql").replace(/\/$/, "");
+    const api = configured.endsWith("/graphql") ? configured : configured + "/graphql";
+    try {
+      const response = await fetch(api,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:"mutation SubmitContact($input: ContactInput!) { submitContact(input: $input) { success } }",variables:{input:{name:String(data.get("name")||""),email:String(data.get("email")||""),phone:String(data.get("phone")||""),country:String(data.get("country")||""),subject:String(data.get("topic")||""),message:String(data.get("message")||"")}}})});
+      const payload=await response.json();
+      if(!response.ok||payload.errors?.length||!payload.data?.submitContact?.success) throw new Error(payload.errors?.[0]?.message||"We could not send your message. Please try again.");
+      form.reset(); setPrepared(true);
+    } catch(e) { setError(e instanceof Error?e.message:"Unable to send your message."); }
+    finally { setSending(false); }
   }
   return <main className="contact-page">
     <section className="contact-hero">
@@ -72,9 +70,9 @@ export default function ContactPage() {
             </label>
             <label className="contact-field-wide">Your message *<textarea name="message" rows={6} minLength={10} placeholder="Tell us a little more about your question or how you would like to connect..." required/></label>
           </div>
-          <button className="contact-submit" type="submit">Prepare my message <Send size={17}/></button>
-          <p className="contact-form-foot">Your email app will open with your message ready to send to our team.</p>
-          {prepared&&<div className="contact-form-status" role="status"><CheckCircle2 size={18}/> Your message is prepared. Please press Send in your email app to deliver it.</div>}
+          <button className="contact-submit" type="submit" disabled={sending}>{sending?"Sending…":"Send my message"} <Send size={17}/></button>
+          <p className="contact-form-foot">Your message is sent securely to our ministry team.</p>
+          {prepared&&<div className="contact-form-status" role="status"><CheckCircle2 size={18}/> Thank you! Your message has been received.</div>}{error&&<div className="contact-form-status" role="alert">{error}</div>}
         </form>
       </div>
     </section>
