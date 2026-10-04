@@ -124,3 +124,30 @@
 @keyframes stickerBob{0%,100%{translate:0 0;rotate:8deg}50%{translate:0 -7px;rotate:5deg}}
 @media(max-width:640px){.sponsor-strip{min-height:0;padding:31px 0}.sponsor-strip p,.cta p{font-size:12px}.cta-inner{align-items:flex-start;text-align:left;min-height:0;padding:38px 0 45px;gap:18px}.cta-inner>div:last-of-type{width:100%;display:grid;grid-template-columns:1fr 1fr}.cta-inner .btn{padding:12px 10px;font-size:10px;min-height:45px}.cta h2{font-size:29px}.cta-sticker{display:block;right:0;top:auto;bottom:8px;transform:scale(.72) rotate(8deg);transform-origin:bottom right}}
 @media(prefers-reduced-motion:reduce){.cta:before,.cta:after,.cta-sticker{animation:none!important}}
+
+
+/* Hero carousel refinement: contain animated layers and create a premium donor-first welcome */
+.hero{isolation:isolate;overflow:hidden;max-width:100%;width:100%;background:linear-gradient(118deg,#03245b,#0753b7 70%,#0877cf);contain:paint}
+.hero-photo{inset:0 0 0 32%;width:68%;max-width:100%;height:100%;transform-origin:center;will-change:transform;filter:saturate(1.08) contrast(1.03)}
+.hero-shade{z-index:0;background:linear-gradient(90deg,#03265ffb 0%,#063b91f5 31%,#063b91dc 46%,#063b9180 65%,#052d6750 100%),linear-gradient(0deg,#03275b70,transparent 50%)}
+.hero:before{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background:radial-gradient(ellipse at 72% 16%,#45baff32,transparent 35%),radial-gradient(ellipse at 8% 95%,#ed319936,transparent 33%);animation:heroAura 9s ease-in-out infinite alternate}
+.hero:after{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#fff 1px,transparent 1.6px);background-size:28px 28px;mask-image:linear-gradient(90deg,#000,transparent 78%);animation:heroGridDrift 26s linear infinite}
+.hero-content{z-index:2;padding-top:74px;padding-bottom:18px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:9px;color:#a7eaff;background:#ffffff12;border:1px solid #ffffff24;border-radius:30px;padding:9px 14px;backdrop-filter:blur(8px);letter-spacing:1.3px}
+.hero h1{max-width:700px;font-size:clamp(42px,5.3vw,68px);line-height:1.01;letter-spacing:-1.8px;text-wrap:balance;text-shadow:0 5px 28px #001b4a55}
+.hero h1 .pink{color:#ff6db7}.hero h1 .green{color:#86f0a0}.hero h1 .yellow{color:#ffda62}
+.hero p{max-width:455px;font-size:15px;line-height:1.75;color:#f0f6ff;text-shadow:0 2px 12px #001b4a55}
+.hero-actions{gap:12px;margin-top:27px;align-items:center}
+.hero-actions .btn{min-height:49px;padding:14px 21px;box-shadow:0 10px 28px #001b4a45,inset 0 1px #ffffff4a}
+.hero-actions .btn-pink{background:linear-gradient(115deg,#f32d94,#d91b7c);color:#fff}
+.hero-actions .btn-sponsor{background:linear-gradient(115deg,#ffc52b,#f3a914);color:#fff}
+.hero-actions .btn:hover{transform:translateY(-4px) scale(1.015)}
+.hero-dots{z-index:3;bottom:27px;gap:10px}
+.hero-dots button{width:9px;height:9px;background:#ffffffa8;box-shadow:0 2px 9px #001b4a55}
+.hero-dots button.is-active{width:31px;background:#ffcf43;box-shadow:0 0 0 4px #ffcf4328}
+.stats{z-index:4;max-width:min(1160px,92%);width:100%;border:1px solid #e7effb;border-radius:18px;box-shadow:0 18px 45px #06336b20,0 3px 12px #06336b0d}
+@keyframes heroAura{0%{opacity:.65;transform:scale(1)}100%{opacity:1;transform:scale(1.04)}}
+@keyframes heroGridDrift{to{background-position:110px 70px}}
+@media(max-width:900px){.hero{height:540px}.hero-content{padding-top:72px}.hero h1{font-size:clamp(39px,6.5vw,56px)}}
+@media(max-width:640px){.hero{height:590px;margin-bottom:105px;overflow:hidden}.hero-photo{inset:0;width:100%;background-position:58% center;opacity:.48;transform-origin:center}.hero-shade{background:linear-gradient(90deg,#032b68f2 0%,#063b91df 60%,#063b91a8 100%),linear-gradient(0deg,#032b68a8,transparent 65%)}.hero-content{padding-top:66px;padding-bottom:40px}.hero h1{font-size:clamp(36px,10vw,45px);letter-spacing:-1.2px;max-width:100%}.hero p{font-size:13px;max-width:350px}.hero-actions{gap:9px;margin-top:22px}.hero-actions .btn{padding:12px 13px;min-height:44px;font-size:10px}.hero-dots{bottom:21px}.stats{max-width:92%;width:92%}}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after{animation:none!important}}
