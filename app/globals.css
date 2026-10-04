@@ -102,3 +102,25 @@
 @keyframes impactGlow{0%{opacity:.82}100%{opacity:1}}
 @keyframes impactPattern{to{background-position:100px 75px}}
 @media(prefers-reduced-motion:reduce){.impact-bg,.impact:before,.impact:after{animation:none!important}.impact-bg{transform:none}}
+
+
+/* Closing homepage calls to action — luminous, layered ministry-blue finish */
+.cta{isolation:isolate;background:linear-gradient(112deg,#03275b 0%,#064b9f 48%,#0874d4 100%);border-top:1px solid #ffffff12}
+.cta:before{z-index:-2;opacity:.9;background:radial-gradient(ellipse at 8% 100%,#ec319b55,transparent 34%),radial-gradient(ellipse at 92% 0%,#ffc52b55,transparent 32%),linear-gradient(120deg,#052c64 0%,transparent 65%);background-size:140% 140%;animation:closingGlow 12s ease-in-out infinite alternate}
+.cta:after{content:"";position:absolute;z-index:-1;inset:-40%;pointer-events:none;opacity:.17;background-image:linear-gradient(120deg,transparent 47%,#ffffff 48%,#ffffff 49%,transparent 50%),radial-gradient(circle,#fff 1px,transparent 1.7px);background-size:180px 180px,27px 27px;transform:rotate(-9deg);animation:closingPattern 28s linear infinite}
+.sponsor-strip,.cta-inner{position:relative;z-index:1}
+.sponsor-strip{min-height:155px;padding:30px 0}
+.sponsor-strip>div,.cta-inner>div:first-child{max-width:640px}
+.sponsor-strip h2,.cta h2{font-size:clamp(27px,3.4vw,39px);letter-spacing:-.8px;text-shadow:0 5px 22px #001b4a40}
+.sponsor-strip p,.cta p{font-size:13px;line-height:1.75;color:#e2efff}
+.sponsor-strip .btn,.cta-inner .btn{min-height:48px;padding:14px 23px;box-shadow:0 10px 26px #001b4a40, inset 0 1px #ffffff45;transition:transform .25s,box-shadow .25s}
+.sponsor-strip .btn:hover,.cta-inner .btn:hover{transform:translateY(-4px);box-shadow:0 15px 32px #001b4a55}
+.cta-inner{min-height:205px;gap:42px;justify-content:space-between;text-align:left;padding:30px 0}
+.cta-inner>div:last-of-type{gap:12px;flex-wrap:wrap}
+.cta-inner .btn-outline{border-color:#ffffffa6;background:#ffffff12;backdrop-filter:blur(8px)}
+.cta-sticker{right:1%;top:14px;filter:drop-shadow(0 10px 18px #001a493d);animation:stickerBob 5s ease-in-out infinite}
+@keyframes closingGlow{0%{background-position:0% 40%}100%{background-position:100% 60%}}
+@keyframes closingPattern{to{background-position:180px 180px,54px 54px}}
+@keyframes stickerBob{0%,100%{translate:0 0;rotate:8deg}50%{translate:0 -7px;rotate:5deg}}
+@media(max-width:640px){.sponsor-strip{min-height:0;padding:31px 0}.sponsor-strip p,.cta p{font-size:12px}.cta-inner{align-items:flex-start;text-align:left;min-height:0;padding:38px 0 45px;gap:18px}.cta-inner>div:last-of-type{width:100%;display:grid;grid-template-columns:1fr 1fr}.cta-inner .btn{padding:12px 10px;font-size:10px;min-height:45px}.cta h2{font-size:29px}.cta-sticker{display:block;right:0;top:auto;bottom:8px;transform:scale(.72) rotate(8deg);transform-origin:bottom right}}
+@media(prefers-reduced-motion:reduce){.cta:before,.cta:after,.cta-sticker{animation:none!important}}
