@@ -163,3 +163,26 @@
   .hero{overflow-x:clip;overflow-y:visible;contain:none;margin-bottom:112px}
   .hero .stats{bottom:-40px}
 }
+
+
+/* Two-line hero headline and clear breathing room for the primary actions */
+.hero h1{max-width:780px;font-size:clamp(38px,4.65vw,60px);line-height:1.08}
+.hero-heading-line{display:block;white-space:nowrap}
+.hero-actions{position:relative;z-index:7}
+@media(max-width:900px){.hero h1{font-size:clamp(35px,5.2vw,49px)}}
+@media(max-width:640px){
+  .hero{height:auto;min-height:0;margin-bottom:42px;padding:0 0 0}
+  .hero-content{padding-top:47px;padding-bottom:0}
+  .hero h1{font-size:clamp(27px,7.1vw,38px);line-height:1.12;letter-spacing:-.8px}
+  .hero-heading-line{white-space:normal}
+  .hero-actions{flex-wrap:wrap;margin-top:20px;padding-bottom:18px}
+  .hero-dots{bottom:16px}
+  .hero .stats{position:relative;left:auto;bottom:auto;transform:none;margin:22px auto 0;width:92%;max-width:92%;z-index:5;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px}
+}
+@media(max-width:390px){.hero h1{font-size:27px}.hero-actions .btn{padding:11px 10px;font-size:9px}}
+
+/* Replace the closing CTA's dotted diagonal overlay with slow, flowing contour ribbons */
+.cta{position:relative;overflow:hidden}
+.cta:after{inset:-12% -25%;opacity:.28;background-image:repeating-radial-gradient(ellipse at 18% 75%,transparent 0 34px,#b9e7ff55 35px 36px,transparent 37px 57px),repeating-radial-gradient(ellipse at 84% 18%,transparent 0 47px,#ffffff42 48px 49px,transparent 50px 73px);background-size:115% 150%,120% 160%;transform:rotate(-7deg) scale(1.08);animation:ctaContourFlow 32s ease-in-out infinite alternate}
+@keyframes ctaContourFlow{0%{background-position:0% 0%,100% 100%;transform:rotate(-7deg) scale(1.02)}100%{background-position:13% 17%,86% 80%;transform:rotate(-3deg) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){.cta:after{animation:none!important}}
