@@ -2,7 +2,7 @@
 import { ArrowRight, Heart, ShieldCheck, Copy, Check, Smartphone, Landmark, Globe2, Utensils, UsersRound, GraduationCap } from "lucide-react";
 import { useState } from "react";
 
-const campaignUrl = "https://gofund.me/806b43834";
+const campaignUrl = "#";
 function CopyValue({value}:{value:string}) { const [copied,setCopied]=useState(false); return <button className="donate-copy" onClick={async()=>{try{await navigator.clipboard.writeText(value);setCopied(true);window.setTimeout(()=>setCopied(false),1800)}catch{setCopied(false)}}} aria-label={"Copy "+value}>{copied?<Check size={16}/>:<Copy size={16}/>}<span>{copied?"Copied":"Copy"}</span></button>; }
 function PayCard({kind,title,subtitle,children,logo}:{kind:string;title:string;subtitle:string;children:React.ReactNode;logo:React.ReactNode}) { return <article className={"pay-card "+kind}><div className="pay-card-top"><div className="pay-logo">{logo}</div><span className="pay-type">{subtitle}</span></div><h3>{title}</h3>{children}</article>; }
 export default function DonatePage(){return <main className="donate-page">
