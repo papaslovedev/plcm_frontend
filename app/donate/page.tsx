@@ -17,12 +17,10 @@ export default function DonatePage() {
       const response = await fetch(api, {
         method: "POST",
         cache: "no-store",
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-cache", "Pragma": "no-cache" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
       });
-      const payload = await response.json();
-      if (!response.ok) throw new Error("GraphQL HTTP " + response.status);
-      return payload;
+      return response.json();
     };
 
     const loadCampaign = async () => {
